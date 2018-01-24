@@ -1,0 +1,36 @@
+{
+  "name": "binkdtokensale",
+  "version": "1.0.0",
+  "description": "Solidity smart contracts for binkd token, presale and crowdsale",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/binkd/BinkdTokenSale.git"
+  },
+  "keywords": [
+    "tokensale",
+    "solidity",
+    "binkd",
+    "erc20",
+    "token",
+    "smartcontracts"
+  ],
+  "author": "Mandy Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/binkd/BinkdTokenSale/issues"
+  },
+  "homepage": "https://github.com/binkd/BinkdTokenSale#readme",
+  "dependencies": {
+    "ethereumjs-wallet": "^0.6.0",
+    "truffle-wallet-provider": "0.0.5",
+    "zeppelin-solidity": "^1.5.0"
+  },
+  "devDependencies": {}
+}
