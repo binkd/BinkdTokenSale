@@ -18,11 +18,13 @@ import 'zeppelin-solidity/contracts/lifecycle/Pausable.sol';
  */
 contract BinkdPresale is CappedCrowdsale, Pausable {
 
-  uint256 public minimalInvestmentInWei = 1 ether;
+  uint256 public minimalInvestmentInWei = .5 ether;
   uint256 public maximumInvestmentInWei = 350 ether;
   address public tokenAddress;
 
   BinkdToken public binkdToken;
+
+  event InitialDateReset(uint256 startTime, uint256 endTime);
 
   function BinkdPresale(uint256 _cap, uint256 _startTime, uint256 _endTime, uint256 _rate, address _wallet, address _tokenAddress) 
     CappedCrowdsale(_cap)
@@ -43,6 +45,23 @@ contract BinkdPresale is CappedCrowdsale, Pausable {
     bool maximumInvested = msg.value <= maximumInvestmentInWei;
 
     return super.validPurchase() && minimalInvested && maximumInvested && !paused;
+  }
+
+  /**
+    * @dev Reset start and end date/time for this Presale.
+    * @param _startTime change presale start time
+    * @param _endTime change presale end period
+    */
+  function setPresaleDates(uint256 _startTime, uint256 _endTime) public onlyOwner returns (bool) { 
+      require(startTime > block.timestamp);
+      require(_startTime >= now);
+      require(_endTime >= _startTime);
+
+      startTime = _startTime;
+      endTime = _endTime;
+
+      InitialDateReset(startTime, endTime);
+      return true;
   }
 
   // set the token owner to contract owner

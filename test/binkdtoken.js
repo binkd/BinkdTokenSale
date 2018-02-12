@@ -3,11 +3,15 @@ const BinkdToken = artifacts.require('./BinkdToken.sol');
 
 contract('BinkdToken', (accounts) => {
     
+    let maxTokenSupply;
+    
     /* token settings */
     const name = "Binkd Token";
-	const symbol = "BINK";
-	const decimals = 18;
-	const maxTokenSupply = 625000000e18;
+    const symbol = "BINK";
+    const decimals = 18;
+
+        maxTokenSupply = 1000e18; //max supply of 1000 tokens in dev mode
+        // maxTokenSupply = 625000000e18;
     
     /* account settings */
     const admin = accounts[0];

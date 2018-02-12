@@ -4,20 +4,27 @@ const BinkdPresale = artifacts.require('./BinkdPresale.sol');
 
 contract('BinkdPresale', (accounts) => {
     
+    let startTime, endTime, ethRate, wallet, maxTokenSupply, presaleCap;
+
     /* account settings */
     const admin = accounts[0];
     const user1 = accounts[1];
     const user2 = accounts[2];
 
     /* presale settings */
-    const startDate  = 1518282000;
-    const endDate    = 1519491600;
-    const rate       = new web3.BigNumber(13300);
-    const presaleCap = 2000e18;
-    const wallet     = accounts[0];
-
-    /* token settings */
-    const maxTokenSupply = 625000000e18;
+        startDate  = Date.now()/1000|0 + 60;
+        endDate    = startDate + 604800;
+        rate       = new web3.BigNumber(100);
+        presaleCap = 2000e18;
+        wallet     = accounts[0];
+        maxTokenSupply = 1000e18;
+        
+        // startDate  = 1518282000;
+        // endDate    = 1519491600;
+        // rate       = new web3.BigNumber(13300);
+        // presaleCap = 2000e18;
+        // wallet     = accounts[0];
+        // maxTokenSupply = 625000000e18;
 
     it ('should be possible to create a new Presale contract', async () => { 
         binkdToken = await BinkdToken.new(maxTokenSupply);
