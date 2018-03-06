@@ -19,7 +19,7 @@ import 'zeppelin-solidity/contracts/lifecycle/Pausable.sol';
 contract BinkdPresale is CappedCrowdsale, Pausable {
 
   uint256 public minimalInvestmentInWei = .5 ether;
-  uint256 public maximumInvestmentInWei = 350 ether;
+  uint256 public maximumInvestmentInWei = 35 ether;
   address public tokenAddress;
 
   BinkdToken public binkdToken;
