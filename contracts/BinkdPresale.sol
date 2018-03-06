@@ -25,6 +25,7 @@ contract BinkdPresale is CappedCrowdsale, Pausable {
   BinkdToken public binkdToken;
 
   event InitialDateReset(uint256 startTime, uint256 endTime);
+  event InitialRateChange(uint256 rate, uint256 cap, uint256 minimalInvestment);
 
   function BinkdPresale(uint256 _cap, uint256 _startTime, uint256 _endTime, uint256 _rate, address _wallet, address _tokenAddress) 
     CappedCrowdsale(_cap)
@@ -61,6 +62,26 @@ contract BinkdPresale is CappedCrowdsale, Pausable {
       endTime = _endTime;
 
       InitialDateReset(startTime, endTime);
+      return true;
+  }
+
+  /**
+    * @dev Sets the token conversion rate
+    * @param _rateInWei - Price of 1 Binkd token in Wei. 
+    * @param _capInWei - Cap of the Presale in Wei. 
+    * @param _minimalInvestmentInWei - Minimal investment in Wei. 
+    */
+  function setRate(uint256 _rateInWei, uint256 _capInWei, uint256 _minimalInvestmentInWei) public onlyOwner returns (bool) { 
+      require(startTime >= block.timestamp); // can't update anymore if sale already started
+      require(_rateInWei > 0);
+      require(_capInWei > 0);
+      require(_minimalInvestmentInWei > 0);
+
+      rate = _rateInWei;
+      cap = _capInWei;
+      minimalInvestmentInWei = _minimalInvestmentInWei;
+
+      InitialRateChange(rate, cap, minimalInvestmentInWei);
       return true;
   }
 
