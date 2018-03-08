@@ -17,3 +17,6 @@ build
 dist
 
 test/keystore/*
+
+binkdpresale.js
+binkdtoken.js
