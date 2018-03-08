@@ -1,6 +1,7 @@
 pragma solidity ^0.4.18;
 
 import './BinkdToken.sol';
+import './Whitelist.sol';
 
 import 'zeppelin-solidity/contracts/crowdsale/CappedCrowdsale.sol';
 import 'zeppelin-solidity/contracts/lifecycle/Pausable.sol';
@@ -16,7 +17,7 @@ import 'zeppelin-solidity/contracts/lifecycle/Pausable.sol';
  * Private sale participants would be offered 50% extra tokens
  * Minimum investment amount during presale would be 5 ether with no maximum limit
  */
-contract BinkdPrivatesale is CappedCrowdsale, Pausable {
+contract BinkdPrivatesale is CappedCrowdsale, Pausable, Whitelist {
 
   uint256 public minimalInvestmentInWei = 5 ether;
   address public tokenAddress;
@@ -42,8 +43,9 @@ contract BinkdPrivatesale is CappedCrowdsale, Pausable {
   // @return true if investors can buy at the moment
   function validPurchase() internal view returns (bool) {
     bool minimalInvested = msg.value >= minimalInvestmentInWei;
+    bool whitelisted = addressIsWhitelisted(msg.sender);
 
-    return super.validPurchase() && minimalInvested && !paused;
+    return super.validPurchase() && minimalInvested && !paused && whitelisted;
   }
 
   /**
